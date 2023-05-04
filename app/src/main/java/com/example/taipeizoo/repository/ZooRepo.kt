@@ -8,14 +8,8 @@ class ZooRepo {
         private val retrofit = Retrofit.Builder().build()
         private val apiService = retrofit.create(TaipeiZoo::class.java)
     }
-    
-    suspend fun getZooSectionIntro() {
-        val response = apiService.getZooSectionIntro()
-        response.result
-    }
 
-    suspend fun getAnimalsInfo() {
-        val response = apiService.getAnimalsInfo()
-        response.result
-    }
+    suspend fun getZooSectionIntro() = apiService.getZooSectionIntro()
+
+    suspend fun getAnimalsInfo() = apiService.getAnimalsInfo()
 }
