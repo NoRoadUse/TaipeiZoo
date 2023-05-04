@@ -1,13 +1,16 @@
 package com.example.taipeizoo.ui.dashboard
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.taipeizoo.databinding.FragmentDashboardBinding
+import com.example.taipeizoo.viewmodel.ZooViewModel
 
 class DashboardFragment : Fragment() {
 
@@ -32,6 +35,13 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
+        val zooViewModel = ViewModelProvider(this)[ZooViewModel::class.java]
+        zooViewModel.getZooSectionIntro()
+        zooViewModel.zooSection.observe(this, Observer {
+            Log.e("test", it.toString())
+        })
+
         return root
     }
 
