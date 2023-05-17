@@ -13,6 +13,8 @@ class ZooViewModel : ViewModel() {
         private val repo = ZooRepo()
     }
 
+    private var responseAnimal: ResponseAnimal? = null
+
     val zooSection = SingleLiveEvent<ResponseSection>()
 
     fun getZooSectionIntro() {
@@ -25,7 +27,8 @@ class ZooViewModel : ViewModel() {
 
     fun getAnimalsInfo() {
         viewModelScope.launch {
-            zooAnimal.postValue(repo.getAnimalsInfo())
+            responseAnimal = repo.getAnimalsInfo()
+            zooAnimal.postValue(responseAnimal)
         }
     }
 }

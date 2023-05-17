@@ -10,8 +10,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentDashboardBinding
+import com.example.taipeizoo.datamodel.SectionContent
 import com.example.taipeizoo.ui.component.DividerItemDecorator
 import com.example.taipeizoo.viewmodel.ZooViewModel
 
@@ -36,12 +38,12 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-
         binding.rvSections.adapter = adapter
+        adapter.setOnItemClick(object :SectionAdapter.ItemCallBack {
+            override fun onClick(data: SectionContent, position: Int) {
+                findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2)
+            }
+        })
         binding.rvSections.addItemDecoration(
             DividerItemDecorator(
                 ColorDrawable(
@@ -54,6 +56,8 @@ class DashboardFragment : Fragment() {
 
         val zooViewModel = ViewModelProvider(this)[ZooViewModel::class.java]
         zooViewModel.getZooSectionIntro()
+        zooViewModel.getAnimalsInfo()
+
         zooViewModel.zooSection.observe(this, Observer {
             Log.e("test", it.toString())
             adapter.submitList(it.result.results)
