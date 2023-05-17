@@ -21,6 +21,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSectionInfo"
+        android:paddingVertical="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +37,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvSectionInfo" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAnimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="動物資料"
+        android:textSize="24dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSectionInfo" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnimal"
         android:layout_width="match_parent"
@@ -43,6 +54,6 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSectionInfo" />
+        app:layout_constraintTop_toBottomOf="@id/tvAnimal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

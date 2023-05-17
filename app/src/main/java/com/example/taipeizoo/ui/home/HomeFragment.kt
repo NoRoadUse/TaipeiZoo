@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
                 .into(binding.imgSection)
 
             binding.tvSectionContent.text = content.e_info
-            binding.tvSectionInfo.text = "${content.e_memo}\n${content.e_category}"
+            binding.tvSectionInfo.text = "${if (content.e_memo == "") "無休館資訊" else content.e_memo}\n${content.e_category}"
             binding.tvSectionLink.setOnClickListener {
                 Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(content.e_url)
@@ -57,8 +57,10 @@ class HomeFragment : Fragment() {
         }
 
         binding.rvAnimal.adapter = adapter
-
-        adapter.submitList(zooViewModel.getAnimals(section?.e_name ?: ""))
+        zooViewModel.getAnimals(section?.e_name ?: "")?.takeIf { it.isNotEmpty() }?.apply {
+            binding.tvAnimal.visibility = View.VISIBLE
+            adapter.submitList(this)
+        }
 
         return root
     }
