@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,8 @@ class DashboardFragment : Fragment() {
 
     private val adapter = SectionAdapter()
 
+    private val zooViewModel: ZooViewModel by activityViewModels<ZooViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +42,10 @@ class DashboardFragment : Fragment() {
         val root: View = binding.root
 
         binding.rvSections.adapter = adapter
-        adapter.setOnItemClick(object :SectionAdapter.ItemCallBack {
+        adapter.setOnItemClick(object : SectionAdapter.ItemCallBack {
             override fun onClick(data: SectionContent, position: Int) {
+                Log.e("animal", "${zooViewModel.getAnimals(data.e_name)}")
+                zooViewModel.setSection(data)
                 findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2)
             }
         })
@@ -54,7 +59,6 @@ class DashboardFragment : Fragment() {
             )
         )
 
-        val zooViewModel = ViewModelProvider(this)[ZooViewModel::class.java]
         zooViewModel.getZooSectionIntro()
         zooViewModel.getAnimalsInfo()
 
