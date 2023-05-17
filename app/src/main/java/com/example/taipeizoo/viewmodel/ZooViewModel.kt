@@ -17,6 +17,7 @@ class ZooViewModel : ViewModel() {
 
     private var responseAnimal: ResponseAnimal? = null
     private var selectedSection : SectionContent? = null
+    private var selectedAnimal : AnimalContent? = null
 
     val zooSection = SingleLiveEvent<ResponseSection>()
 
@@ -43,4 +44,10 @@ class ZooViewModel : ViewModel() {
     }
 
     fun getSelectSection() = selectedSection
+
+    fun setAnimal(animal: AnimalContent) {
+        selectedAnimal = animal
+    }
+
+    fun getSelectAnimal() = selectedAnimal
 }

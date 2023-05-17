@@ -1,13 +1,17 @@
 package com.example.taipeizoo.ui.notifications
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.taipeizoo.databinding.FragmentNotificationsBinding
+import com.example.taipeizoo.viewmodel.ZooViewModel
 
 class NotificationsFragment : Fragment() {
 
@@ -16,6 +20,8 @@ class NotificationsFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private val zooViewModel: ZooViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,10 +34,16 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        zooViewModel.getSelectAnimal()?.apply {
+            Log.e("", "${this}")
+
+            Glide.with(root)
+                .load(a_pic01_url.replace("http", "https"))
+                .into(binding.imgAnimal)
+
+            binding.tvAnimal.text = "${a_name_ch}\n${a_name_latin}\n\n簡介\n${a_feature}\n\n行為\n${a_behavior}\n\n 最後更新: ${_importdate["date"]?.subSequence(0..10)}"
         }
+
         return root
     }
 
