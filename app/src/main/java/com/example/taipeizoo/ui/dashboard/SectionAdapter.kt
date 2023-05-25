@@ -1,15 +1,12 @@
 package com.example.taipeizoo.ui.dashboard
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.taipeizoo.R
+import com.example.taipeizoo.databinding.ItemSectionBinding
 import com.example.taipeizoo.datamodel.SectionResultX
 
 class SectionAdapter : ListAdapter<SectionResultX, SectionAdapter.ItemViewHolder>(
@@ -32,24 +29,19 @@ class SectionAdapter : ListAdapter<SectionResultX, SectionAdapter.ItemViewHolder
         }
     }
 
-    inner class ItemViewHolder(itemView: View, var viewType: Int) :
-        RecyclerView.ViewHolder(itemView) {
-
-        private val imgSection: ImageView = itemView.findViewById(R.id.imgSection)
-        private val tvTitle: AppCompatTextView = itemView.findViewById(R.id.tvTitle)
-        private val tvContent: AppCompatTextView = itemView.findViewById(R.id.tvContent)
-        private val tvOpenTime: AppCompatTextView = itemView.findViewById(R.id.tvOpenTime)
+    inner class ItemViewHolder(private val binding: ItemSectionBinding, var viewType: Int) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bindModel(data: SectionResultX, position: Int) {
 
             Glide.with(itemView.context)
                 .load(data.ePicUrl?.replace("http", "https"))
                 .centerCrop()
-                .into(imgSection)
+                .into(binding.imgSection)
 
-            tvTitle.text = data.eName
-            tvContent.text = data.eInfo
-            tvOpenTime.text = if (data.eMemo == "") "無休館資訊" else data.eMemo
+            binding.tvTitle.text = data.eName
+            binding.tvContent.text = data.eInfo
+            binding.tvOpenTime.text = if (data.eMemo == "") "無休館資訊" else data.eMemo
 
             itemView.setOnClickListener {
                 itemCallBackImpl?.onClick(data, position)
@@ -58,11 +50,10 @@ class SectionAdapter : ListAdapter<SectionResultX, SectionAdapter.ItemViewHolder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        var view =
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_section, parent, false)
 
-        return ItemViewHolder(view, viewType)
+        val bind = ItemSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return ItemViewHolder(bind, viewType)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
