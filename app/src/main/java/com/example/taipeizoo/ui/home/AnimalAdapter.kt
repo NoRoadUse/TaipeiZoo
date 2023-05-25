@@ -35,6 +35,13 @@ class AnimalAdapter : ListAdapter<AnimalResultX, AnimalAdapter.ItemViewHolder>(
 
         fun bindModel(data: AnimalResultX, position: Int) {
 
+            if (position == 0) {
+                binding.tvHeader.visibility = View.VISIBLE
+                binding.tvHeader.apply {
+                    text = data.aNameCh
+                }
+            }
+
             Glide.with(itemView.context)
                 .load(data.aPic01Url?.replace("http", "https"))
                 .centerCrop()

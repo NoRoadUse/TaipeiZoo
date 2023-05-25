@@ -4,48 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="8dp"
     tools:context=".ui.home.HomeFragment">
-
-    <ImageView
-        android:id="@+id/imgSection"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSectionContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/imgSection" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSectionInfo"
-        android:paddingVertical="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSectionContent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSectionLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="在網頁開啟"
-        android:textColor="@color/teal_700"
-        app:layout_constraintBottom_toBottomOf="@id/tvSectionInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvSectionInfo" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvAnimal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="動物資料"
-        android:textSize="24dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSectionInfo" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnimal"
@@ -54,6 +13,6 @@
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvAnimal" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

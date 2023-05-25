@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ConcatAdapter
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentHomeBinding
@@ -27,47 +28,34 @@ class HomeFragment : Fragment() {
 
     private val zooViewModel: ZooViewModel by activityViewModels()
 
+    private val headAdapter = HeadAdapter()
     private val adapter = AnimalAdapter()
+    private val concatAdapter = ConcatAdapter(headAdapter, adapter)
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val section = zooViewModel.getSelectSection()
         Timber.d("$section")
 
-        section?.let { content ->
-            Glide.with(binding.root)
-                .load(section.ePicUrl?.replace("http", "https"))
-                .into(binding.imgSection)
 
-            binding.tvSectionContent.text = content.eInfo
-            binding.tvSectionInfo.text =
-                "${if (content.eMemo == "") "無休館資訊" else content.eMemo}\n${content.eCategory}"
-            binding.tvSectionLink.setOnClickListener {
-                Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(content.eUrl)
-                    startActivity(this)
-                }
-            }
-        }
-
-        binding.rvAnimal.adapter = adapter
+        binding.rvAnimal.adapter = concatAdapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {
             override fun onClick(data: AnimalResultX, position: Int) {
                 zooViewModel.setAnimal(data)
                 findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications)
             }
         })
+
+        headAdapter.submitList(listOf(section))
+
         zooViewModel.getAnimals(section?.eName ?: "")?.takeIf { it.isNotEmpty() }?.apply {
-            binding.tvAnimal.visibility = View.VISIBLE
             adapter.submitList(this)
         }
 

@@ -5,6 +5,16 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:text="動物資料"
+        android:textSize="24dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imgSection"
         android:layout_width="120dp"
@@ -12,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvHeader" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTitle"
@@ -21,9 +31,9 @@
         android:layout_margin="8dp"
         android:ellipsize="end"
         android:maxLines="1"
+        app:layout_constraintBottom_toTopOf="@id/tvContent"
         app:layout_constraintEnd_toStartOf="@id/imgArrow"
         app:layout_constraintStart_toEndOf="@id/imgSection"
-        app:layout_constraintBottom_toTopOf="@id/tvContent"
         app:layout_constraintTop_toTopOf="@id/imgSection" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -51,11 +61,11 @@
         app:layout_constraintTop_toBottomOf="@id/tvContent" />
 
     <ImageView
-        android:src="@drawable/baseline_arrow_forward_ios_24"
         android:id="@+id/imgArrow"
-        android:layout_marginEnd="8dp"
         android:layout_width="16dp"
         android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/baseline_arrow_forward_ios_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
