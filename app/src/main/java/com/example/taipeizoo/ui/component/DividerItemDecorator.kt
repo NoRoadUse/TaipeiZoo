@@ -18,11 +18,13 @@ class DividerItemDecorator(drawable: Drawable?) : RecyclerView.ItemDecoration() 
         val childCount = parent.childCount
         for (i in 0..childCount - 2) {
             val child = parent.getChildAt(i)
-            val params = child.layoutParams as RecyclerView.LayoutParams
-            val dividerTop = child.bottom + params.bottomMargin
-            val dividerBottom = dividerTop + mDivider!!.intrinsicHeight
-            mDivider!!.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
-            mDivider!!.draw(canvas)
+            child?.run {
+                val params = child.layoutParams as RecyclerView.LayoutParams
+                val dividerTop = child.bottom + params.bottomMargin
+                val dividerBottom = dividerTop + (mDivider?.intrinsicHeight ?: 0)
+                mDivider?.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+                mDivider?.draw(canvas)
+            }
         }
     }
 }
