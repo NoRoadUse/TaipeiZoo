@@ -5,15 +5,15 @@ data class ResponseAnimal(
 )
 
 data class AnimalResult(
-    val limit: UInt,
-    val offset: UInt,
-    val count: UInt,
+    val limit: Int,
+    val offset: Int,
+    val count: Int,
     val sort: String,
     val results: List<AnimalContent>
 )
 
 data class AnimalContent(
-    val _id: UInt,
+    val _id: Int,
     val _importdate: HashMap<String, String>,
     val a_name_ch: String,
     val a_summary: String,

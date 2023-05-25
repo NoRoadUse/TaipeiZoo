@@ -46,15 +46,15 @@ class HomeFragment : Fragment() {
 
         section?.let { content ->
             Glide.with(binding.root)
-                .load(section.e_pic_url.replace("http", "https"))
+                .load(section.ePicUrl?.replace("http", "https"))
                 .into(binding.imgSection)
 
-            binding.tvSectionContent.text = content.e_info
+            binding.tvSectionContent.text = content.eInfo
             binding.tvSectionInfo.text =
-                "${if (content.e_memo == "") "無休館資訊" else content.e_memo}\n${content.e_category}"
+                "${if (content.eMemo == "") "無休館資訊" else content.eMemo}\n${content.eCategory}"
             binding.tvSectionLink.setOnClickListener {
                 Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(content.e_url)
+                    data = Uri.parse(content.eUrl)
                     startActivity(this)
                 }
             }
@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications)
             }
         })
-        zooViewModel.getAnimals(section?.e_name ?: "")?.takeIf { it.isNotEmpty() }?.apply {
+        zooViewModel.getAnimals(section?.eName ?: "")?.takeIf { it.isNotEmpty() }?.apply {
             binding.tvAnimal.visibility = View.VISIBLE
             adapter.submitList(this)
         }

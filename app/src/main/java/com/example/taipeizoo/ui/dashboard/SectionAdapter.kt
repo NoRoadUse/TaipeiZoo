@@ -4,31 +4,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.R
-import com.example.taipeizoo.datamodel.SectionContent
+import com.example.taipeizoo.datamodel.SectionResultX
 
-class SectionAdapter : ListAdapter<SectionContent, SectionAdapter.ItemViewHolder>(
+class SectionAdapter : ListAdapter<SectionResultX, SectionAdapter.ItemViewHolder>(
     DiffCallBack
 ) {
 
     private var itemCallBackImpl: ItemCallBack? = null
 
     interface ItemCallBack {
-        fun onClick(data: SectionContent, position: Int)
+        fun onClick(data: SectionResultX, position: Int)
     }
 
-    object DiffCallBack : DiffUtil.ItemCallback<SectionContent>() {
-        override fun areItemsTheSame(oldItem: SectionContent, newItem: SectionContent): Boolean {
-            return oldItem._id == newItem._id
+    object DiffCallBack : DiffUtil.ItemCallback<SectionResultX>() {
+        override fun areItemsTheSame(oldItem: SectionResultX, newItem: SectionResultX): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SectionContent, newItem: SectionContent): Boolean {
+        override fun areContentsTheSame(oldItem: SectionResultX, newItem: SectionResultX): Boolean {
             return oldItem == newItem
         }
     }
@@ -41,16 +40,16 @@ class SectionAdapter : ListAdapter<SectionContent, SectionAdapter.ItemViewHolder
         private val tvContent: AppCompatTextView = itemView.findViewById(R.id.tvContent)
         private val tvOpenTime: AppCompatTextView = itemView.findViewById(R.id.tvOpenTime)
 
-        fun bindModel(data: SectionContent, position: Int) {
+        fun bindModel(data: SectionResultX, position: Int) {
 
             Glide.with(itemView.context)
-                .load(data.e_pic_url.replace("http", "https"))
+                .load(data.ePicUrl?.replace("http", "https"))
                 .centerCrop()
                 .into(imgSection)
 
-            tvTitle.text = data.e_name
-            tvContent.text = data.e_info
-            tvOpenTime.text = if (data.e_memo == "") "無休館資訊" else data.e_memo
+            tvTitle.text = data.eName
+            tvContent.text = data.eInfo
+            tvOpenTime.text = if (data.eMemo == "") "無休館資訊" else data.eMemo
 
             itemView.setOnClickListener {
                 itemCallBackImpl?.onClick(data, position)

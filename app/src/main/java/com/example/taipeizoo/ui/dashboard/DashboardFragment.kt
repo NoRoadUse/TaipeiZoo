@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -14,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentDashboardBinding
-import com.example.taipeizoo.datamodel.SectionContent
+import com.example.taipeizoo.datamodel.SectionResultX
 import com.example.taipeizoo.ui.component.DividerItemDecorator
 import com.example.taipeizoo.viewmodel.ZooViewModel
 
@@ -43,8 +42,8 @@ class DashboardFragment : Fragment() {
 
         binding.rvSections.adapter = adapter
         adapter.setOnItemClick(object : SectionAdapter.ItemCallBack {
-            override fun onClick(data: SectionContent, position: Int) {
-                Log.e("animal", "${zooViewModel.getAnimals(data.e_name)}")
+            override fun onClick(data: SectionResultX, position: Int) {
+                Log.e("animal", "${zooViewModel.getAnimals(data.eName ?: "")}")
                 zooViewModel.setSection(data)
                 findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2)
             }
@@ -64,7 +63,7 @@ class DashboardFragment : Fragment() {
 
         zooViewModel.zooSection.observe(this, Observer {
             Log.e("test", it.toString())
-            adapter.submitList(it.result.results)
+            adapter.submitList(it.result?.results)
         })
 
         return root
