@@ -3,11 +3,9 @@ package com.example.taipeizoo.ui.home
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +15,7 @@ import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentHomeBinding
 import com.example.taipeizoo.datamodel.AnimalResultX
 import com.example.taipeizoo.viewmodel.ZooViewModel
+import timber.log.Timber
 
 class HomeFragment : Fragment() {
 
@@ -42,7 +41,7 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         val section = zooViewModel.getSelectSection()
-        Log.e("", "$section")
+        Timber.d("$section")
 
         section?.let { content ->
             Glide.with(binding.root)

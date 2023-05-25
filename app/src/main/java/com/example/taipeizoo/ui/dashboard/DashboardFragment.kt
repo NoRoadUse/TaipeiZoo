@@ -2,7 +2,6 @@ package com.example.taipeizoo.ui.dashboard
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.example.taipeizoo.databinding.FragmentDashboardBinding
 import com.example.taipeizoo.datamodel.SectionResultX
 import com.example.taipeizoo.ui.component.DividerItemDecorator
 import com.example.taipeizoo.viewmodel.ZooViewModel
+import timber.log.Timber
 
 class DashboardFragment : Fragment() {
 
@@ -43,7 +43,7 @@ class DashboardFragment : Fragment() {
         binding.rvSections.adapter = adapter
         adapter.setOnItemClick(object : SectionAdapter.ItemCallBack {
             override fun onClick(data: SectionResultX, position: Int) {
-                Log.e("animal", "${zooViewModel.getAnimals(data.eName ?: "")}")
+                Timber.d("animal %s", "${zooViewModel.getAnimals(data.eName ?: "")}")
                 zooViewModel.setSection(data)
                 findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2)
             }
@@ -62,7 +62,7 @@ class DashboardFragment : Fragment() {
         zooViewModel.getAnimalsInfo()
 
         zooViewModel.zooSection.observe(this, Observer {
-            Log.e("test", it.toString())
+            Timber.d("test %s", it.toString())
             adapter.submitList(it.result?.results)
         })
 
