@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.taipeizoo.MainActivity
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentDashboardBinding
 import com.example.taipeizoo.datamodel.SectionResultX
@@ -61,12 +63,18 @@ class DashboardFragment : Fragment() {
         zooViewModel.getZooSectionIntro()
         zooViewModel.getAnimalsInfo()
 
-        zooViewModel.zooSection.observe(this, Observer {
+        zooViewModel.zooSection.observe(viewLifecycleOwner, Observer {
             Timber.d("test %s", it.toString())
             adapter.submitList(it.result?.results)
         })
 
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as MainActivity).setToolBarTitle("台北市立動物園")
+
     }
 
     override fun onDestroyView() {

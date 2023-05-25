@@ -38,7 +38,7 @@ class AnimalAdapter : ListAdapter<AnimalResultX, AnimalAdapter.ItemViewHolder>(
             if (position == 0) {
                 binding.tvHeader.visibility = View.VISIBLE
                 binding.tvHeader.apply {
-                    text = data.aNameCh
+                    text = "動物資料"
                 }
             }
 

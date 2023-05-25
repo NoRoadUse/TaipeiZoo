@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.bumptech.glide.Glide
+import com.example.taipeizoo.MainActivity
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentHomeBinding
 import com.example.taipeizoo.datamodel.AnimalResultX
@@ -44,6 +46,7 @@ class HomeFragment : Fragment() {
         val section = zooViewModel.getSelectSection()
         Timber.d("$section")
 
+        (activity as MainActivity).setToolBarTitle(section?.eName)
 
         binding.rvAnimal.adapter = concatAdapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {

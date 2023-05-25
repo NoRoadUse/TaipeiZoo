@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.taipeizoo.MainActivity
 import com.example.taipeizoo.databinding.FragmentNotificationsBinding
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import timber.log.Timber
@@ -33,8 +34,11 @@ class NotificationsFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
         zooViewModel.getSelectAnimal()?.apply {
             Timber.d("$this")
+            (activity as MainActivity).setToolBarTitle(aNameCh)
 
             Glide.with(root)
                 .load(aPic01Url?.replace("http", "https"))
