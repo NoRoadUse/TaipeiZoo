@@ -1,6 +1,6 @@
 package com.example.taipeizoo.http
 
-import com.example.taipeizoo.datamodel.ResponseAnimal
+import com.example.taipeizoo.datamodel.AnimalData
 import com.example.taipeizoo.datamodel.SectionData
 import retrofit2.http.GET
 
@@ -9,5 +9,5 @@ interface TaipeiZoo {
     suspend fun getZooSectionIntro(): SectionData
 
     @GET("https://data.taipei/api/v1/dataset/a3e2b221-75e0-45c1-8f97-75acbd43d613?scope=resourceAquire")
-    suspend fun getAnimalsInfo(): ResponseAnimal
+    suspend fun getAnimalsInfo(): AnimalData
 }

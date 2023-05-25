@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentHomeBinding
-import com.example.taipeizoo.datamodel.AnimalContent
+import com.example.taipeizoo.datamodel.AnimalResultX
 import com.example.taipeizoo.viewmodel.ZooViewModel
 
 class HomeFragment : Fragment() {
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
 
         binding.rvAnimal.adapter = adapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {
-            override fun onClick(data: AnimalContent, position: Int) {
+            override fun onClick(data: AnimalResultX, position: Int) {
                 zooViewModel.setAnimal(data)
                 findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications)
             }

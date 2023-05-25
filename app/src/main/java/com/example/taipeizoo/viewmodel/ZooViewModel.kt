@@ -2,8 +2,8 @@ package com.example.taipeizoo.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.taipeizoo.datamodel.AnimalContent
-import com.example.taipeizoo.datamodel.ResponseAnimal
+import com.example.taipeizoo.datamodel.AnimalData
+import com.example.taipeizoo.datamodel.AnimalResultX
 import com.example.taipeizoo.datamodel.SectionData
 import com.example.taipeizoo.datamodel.SectionResultX
 import com.example.taipeizoo.repository.ZooRepo
@@ -15,9 +15,9 @@ class ZooViewModel : ViewModel() {
         private val repo = ZooRepo()
     }
 
-    private var responseAnimal: ResponseAnimal? = null
-    private var selectedSection : SectionResultX? = null
-    private var selectedAnimal : AnimalContent? = null
+    private var responseAnimal: AnimalData? = null
+    private var selectedSection: SectionResultX? = null
+    private var selectedAnimal: AnimalResultX? = null
 
     val zooSection = SingleLiveEvent<SectionData>()
 
@@ -33,9 +33,9 @@ class ZooViewModel : ViewModel() {
         }
     }
 
-    fun getAnimals(section: String): List<AnimalContent>? {
-        return responseAnimal?.result?.results?.filter {
-            it.a_location == section
+    fun getAnimals(section: String): List<AnimalResultX>? {
+        return responseAnimal?.animalResult?.results?.filter {
+            it.aLocation == section
         }
     }
 
@@ -45,7 +45,7 @@ class ZooViewModel : ViewModel() {
 
     fun getSelectSection() = selectedSection
 
-    fun setAnimal(animal: AnimalContent) {
+    fun setAnimal(animal: AnimalResultX) {
         selectedAnimal = animal
     }
 

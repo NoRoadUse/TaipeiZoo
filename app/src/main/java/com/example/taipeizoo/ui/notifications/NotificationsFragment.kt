@@ -38,10 +38,10 @@ class NotificationsFragment : Fragment() {
             Log.e("", "${this}")
 
             Glide.with(root)
-                .load(a_pic01_url.replace("http", "https"))
+                .load(aPic01Url?.replace("http", "https"))
                 .into(binding.imgAnimal)
 
-            binding.tvAnimal.text = "${a_name_ch}\n${a_name_latin}\n\n簡介\n${a_feature}\n\n行為\n${a_behavior}\n\n 最後更新: ${_importdate["date"]?.subSequence(0..10)}"
+            binding.tvAnimal.text = "${aNameCh}\n${aNameLatin}\n\n簡介\n${aFeature}\n\n行為\n${aBehavior}\n\n 最後更新: ${animalImportdate?.date?.subSequence(0..10)}"
         }
 
         return root
