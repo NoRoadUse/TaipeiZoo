@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -47,7 +47,7 @@ class DashboardFragment : Fragment() {
             override fun onClick(data: SectionResultX, position: Int) {
                 Timber.d("animal %s", "${zooViewModel.getAnimals(data.eName ?: "")}")
                 zooViewModel.setSection(data)
-                findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2)
+                findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2, bundleOf("title" to data.eName))
             }
         })
         binding.rvSections.addItemDecoration(
@@ -69,12 +69,6 @@ class DashboardFragment : Fragment() {
         })
 
         return root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        (activity as MainActivity).setToolBarTitle("台北市立動物園")
-
     }
 
     override fun onDestroyView() {

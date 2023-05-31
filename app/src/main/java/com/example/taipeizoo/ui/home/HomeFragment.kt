@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -46,13 +47,11 @@ class HomeFragment : Fragment() {
         val section = zooViewModel.getSelectSection()
         Timber.d("$section")
 
-        (activity as MainActivity).setToolBarTitle(section?.eName)
-
         binding.rvAnimal.adapter = concatAdapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {
             override fun onClick(data: AnimalResultX, position: Int) {
                 zooViewModel.setAnimal(data)
-                findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications)
+                findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications, bundleOf("title" to data.aNameCh))
             }
         })
 

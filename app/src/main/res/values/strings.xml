@@ -3,4 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="main_title">台北市立動物園</string>
+    <string name="animal_desc">%s\n%s\n\n簡介\n%s\n\n行為\n%s\n\n 最後更新: %s</string>
 </resources>

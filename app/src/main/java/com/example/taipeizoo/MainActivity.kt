@@ -22,8 +22,4 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setupWithNavController(navController, AppBarConfiguration(navController.graph))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-    fun setToolBarTitle(title: String?) {
-        binding.tvToolbarTitle.text = title
-    }
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.taipeizoo.ui.home.HomeFragment"
-        android:label=""
+        android:label="{title}"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_notifications"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.taipeizoo.ui.dashboard.DashboardFragment"
-        android:label=""
+        android:label="@string/main_title"
         tools:layout="@layout/fragment_dashboard" >
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_home2"
@@ -28,6 +28,6 @@
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.taipeizoo.ui.notifications.NotificationsFragment"
-        android:label=""
+        android:label="{title}"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
