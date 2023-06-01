@@ -9,11 +9,7 @@ import com.example.taipeizoo.datamodel.SectionResultX
 import com.example.taipeizoo.repository.ZooRepo
 import kotlinx.coroutines.launch
 
-class ZooViewModel : ViewModel() {
-
-    companion object {
-        private val repo = ZooRepo()
-    }
+class ZooViewModel(private val repo : ZooRepo = ZooRepo()) : ViewModel() {
 
     private var responseAnimal: AnimalData? = null
     private var selectedSection: SectionResultX? = null

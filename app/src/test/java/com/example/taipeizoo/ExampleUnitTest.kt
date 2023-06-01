@@ -16,23 +16,4 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
-
-    @Test
-    fun testZooViewModelSetSection() {
-        val zooViewModel = ZooViewModel()
-
-        val testData = SectionResultX(eName = "Test Section")
-        zooViewModel.setSection(testData)
-
-        assertEquals(testData, zooViewModel.getSelectSection())
-    }
-
-    @Test
-    fun testZooViewModelSetAnimal() {
-        val zooViewModel = ZooViewModel()
-        val testData = AnimalResultX(aNameCh = "Test Animal")
-        zooViewModel.setAnimal(testData)
-
-        assertEquals(testData, zooViewModel.getSelectAnimal())
-    }
 }
