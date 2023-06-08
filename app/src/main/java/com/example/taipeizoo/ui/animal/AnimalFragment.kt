@@ -1,4 +1,4 @@
-package com.example.taipeizoo.ui.notifications
+package com.example.taipeizoo.ui.animal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,15 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.taipeizoo.MainActivity
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentNotificationsBinding
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import timber.log.Timber
 
-class NotificationsFragment : Fragment() {
+class AnimalFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
 

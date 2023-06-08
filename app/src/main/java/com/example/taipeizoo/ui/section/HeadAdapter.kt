@@ -1,15 +1,18 @@
-package com.example.taipeizoo.ui.dashboard
+package com.example.taipeizoo.ui.section
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.taipeizoo.databinding.ItemSectionBinding
+import com.example.taipeizoo.databinding.HeaderAnimalBinding
 import com.example.taipeizoo.datamodel.SectionResult
 
-class SectionAdapter : ListAdapter<SectionResult, SectionAdapter.ItemViewHolder>(
+class HeadAdapter : ListAdapter<SectionResult, HeadAdapter.ItemViewHolder>(
     DiffCallBack
 ) {
 
@@ -29,31 +32,32 @@ class SectionAdapter : ListAdapter<SectionResult, SectionAdapter.ItemViewHolder>
         }
     }
 
-    inner class ItemViewHolder(private val binding: ItemSectionBinding, var viewType: Int) :
+    inner class ItemViewHolder(private val binding: HeaderAnimalBinding, var viewType: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindModel(data: SectionResult, position: Int) {
-
-            Glide.with(itemView.context)
+            Glide.with(binding.root)
                 .load(data.formatEPicUrl)
-                .centerCrop()
                 .into(binding.imgSection)
 
-            binding.tvTitle.text = data.eName
-            binding.tvContent.text = data.eInfo
-            binding.tvOpenTime.text = if (data.eMemo == "") "無休館資訊" else data.eMemo
-
-            itemView.setOnClickListener {
-                itemCallBackImpl?.onClick(data, position)
+            binding.tvSectionContent.text = data.eInfo
+            binding.tvSectionInfo.text =
+                "${if (data.eMemo == "") "無休館資訊" else data.eMemo}\n${data.eCategory}"
+            binding.tvSectionLink.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    this.data = Uri.parse(data.eUrl)
+                }
+                startActivity(it.context, intent, null)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val bind = ItemSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            HeaderAnimalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ItemViewHolder(bind, viewType)
+        return ItemViewHolder(binding, viewType)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

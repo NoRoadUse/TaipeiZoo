@@ -3,31 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dashboard">
+    app:startDestination="@+id/navigation_main">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.taipeizoo.ui.home.HomeFragment"
+        android:id="@+id/navigation_section"
+        android:name="com.example.taipeizoo.ui.section.SectionFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_navigation_home_to_navigation_notifications"
-            app:destination="@id/navigation_notifications" />
+            android:id="@+id/action_navigation_section_to_navigation_animal"
+            app:destination="@id/navigation_animal" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.taipeizoo.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_main"
+        android:name="com.example.taipeizoo.ui.portal.PortalFragment"
         android:label="@string/main_title"
         tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_navigation_dashboard_to_navigation_home2"
-            app:destination="@id/navigation_home" />
+            android:id="@+id/action_navigation_main_to_navigation_section"
+            app:destination="@id/navigation_section" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.taipeizoo.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_animal"
+        android:name="com.example.taipeizoo.ui.animal.AnimalFragment"
         android:label="{title}"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

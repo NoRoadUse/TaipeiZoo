@@ -1,4 +1,4 @@
-package com.example.taipeizoo.ui.dashboard
+package com.example.taipeizoo.ui.portal
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -18,7 +18,7 @@ import com.example.taipeizoo.ui.component.DividerItemDecorator
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import timber.log.Timber
 
-class DashboardFragment : Fragment() {
+class PortalFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
 
@@ -46,7 +46,7 @@ class DashboardFragment : Fragment() {
             override fun onClick(data: SectionResult, position: Int) {
                 Timber.d("animal %s", "${zooViewModel.getAnimals(data.eName ?: "")}")
                 zooViewModel.setSection(data)
-                findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2, bundleOf("title" to data.eName))
+                findNavController().navigate(R.id.action_navigation_main_to_navigation_section, bundleOf("title" to data.eName))
             }
         })
         binding.rvSections.addItemDecoration(
