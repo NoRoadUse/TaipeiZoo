@@ -8,24 +8,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.databinding.ItemSectionBinding
-import com.example.taipeizoo.datamodel.AnimalResultX
+import com.example.taipeizoo.datamodel.AnimalResult
 
-class AnimalAdapter : ListAdapter<AnimalResultX, AnimalAdapter.ItemViewHolder>(
+class AnimalAdapter : ListAdapter<AnimalResult, AnimalAdapter.ItemViewHolder>(
     DiffCallBack
 ) {
 
     private var itemCallBackImpl: ItemCallBack? = null
 
     interface ItemCallBack {
-        fun onClick(data: AnimalResultX, position: Int)
+        fun onClick(data: AnimalResult, position: Int)
     }
 
-    object DiffCallBack : DiffUtil.ItemCallback<AnimalResultX>() {
-        override fun areItemsTheSame(oldItem: AnimalResultX, newItem: AnimalResultX): Boolean {
+    object DiffCallBack : DiffUtil.ItemCallback<AnimalResult>() {
+        override fun areItemsTheSame(oldItem: AnimalResult, newItem: AnimalResult): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: AnimalResultX, newItem: AnimalResultX): Boolean {
+        override fun areContentsTheSame(oldItem: AnimalResult, newItem: AnimalResult): Boolean {
             return oldItem == newItem
         }
     }
@@ -33,7 +33,7 @@ class AnimalAdapter : ListAdapter<AnimalResultX, AnimalAdapter.ItemViewHolder>(
     inner class ItemViewHolder(private val binding: ItemSectionBinding, var viewType: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindModel(data: AnimalResultX, position: Int) {
+        fun bindModel(data: AnimalResult, position: Int) {
 
             if (position == 0) {
                 binding.tvHeader.visibility = View.VISIBLE
@@ -43,7 +43,7 @@ class AnimalAdapter : ListAdapter<AnimalResultX, AnimalAdapter.ItemViewHolder>(
             }
 
             Glide.with(itemView.context)
-                .load(data.aPic01Url?.replace("http", "https"))
+                .load(data.formatAPic01Url)
                 .centerCrop()
                 .into(binding.imgSection)
 

@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class AnimalData(
     @SerializedName("result")
-    val animalResult: AnimalResult? = AnimalResult()
+    val animalContent: AnimalContent? = AnimalContent()
 )

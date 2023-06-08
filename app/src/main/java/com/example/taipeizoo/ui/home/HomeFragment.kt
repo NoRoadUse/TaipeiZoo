@@ -1,23 +1,17 @@
 package com.example.taipeizoo.ui.home
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
-import com.bumptech.glide.Glide
-import com.example.taipeizoo.MainActivity
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentHomeBinding
-import com.example.taipeizoo.datamodel.AnimalResultX
+import com.example.taipeizoo.datamodel.AnimalResult
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import timber.log.Timber
 
@@ -49,7 +43,7 @@ class HomeFragment : Fragment() {
 
         binding.rvAnimal.adapter = concatAdapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {
-            override fun onClick(data: AnimalResultX, position: Int) {
+            override fun onClick(data: AnimalResult, position: Int) {
                 zooViewModel.setAnimal(data)
                 findNavController().navigate(R.id.action_navigation_home_to_navigation_notifications, bundleOf("title" to data.aNameCh))
             }

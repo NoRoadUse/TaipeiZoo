@@ -2,8 +2,8 @@ package com.example.taipeizoo.viewmodeltest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.taipeizoo.datamodel.AnimalData
+import com.example.taipeizoo.datamodel.AnimalContent
 import com.example.taipeizoo.datamodel.AnimalResult
-import com.example.taipeizoo.datamodel.AnimalResultX
 import com.example.taipeizoo.datamodel.SectionData
 import com.example.taipeizoo.datamodel.SectionContent
 import com.example.taipeizoo.datamodel.SectionResult
@@ -68,8 +68,8 @@ class ZooViewModelTest {
 
     @Test
     fun testZooVmGetAnimalInfo() {
-        val testData = listOf(AnimalResultX(aBehavior = "test", aLocation = "123"))
-        val fakeResponse = AnimalData(AnimalResult(results = testData))
+        val testData = listOf(AnimalResult(aBehavior = "test", aLocation = "123"))
+        val fakeResponse = AnimalData(AnimalContent(results = testData))
 
         coEvery { repo.getAnimalsInfo() } returns fakeResponse
 
@@ -95,7 +95,7 @@ class ZooViewModelTest {
     @Test
     fun testZooViewModelSetAnimal() {
         val zooViewModel = ZooViewModel()
-        val testData = AnimalResultX(aNameCh = "Test Animal")
+        val testData = AnimalResult(aNameCh = "Test Animal")
         zooViewModel.setAnimal(testData)
 
         assertEquals(testData, zooViewModel.getSelectAnimal())

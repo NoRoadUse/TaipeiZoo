@@ -38,7 +38,7 @@ class NotificationsFragment : Fragment() {
             Timber.d("$this")
 
             Glide.with(root)
-                .load(aPic01Url?.replace("http", "https"))
+                .load(formatAPic01Url)
                 .into(binding.imgAnimal)
 
             binding.tvAnimal.text = getString(
