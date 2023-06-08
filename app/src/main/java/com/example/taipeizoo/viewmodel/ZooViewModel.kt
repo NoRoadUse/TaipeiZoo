@@ -1,21 +1,20 @@
 package com.example.taipeizoo.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taipeizoo.datamodel.AnimalData
 import com.example.taipeizoo.datamodel.AnimalResultX
 import com.example.taipeizoo.datamodel.SectionData
-import com.example.taipeizoo.datamodel.SectionResultX
+import com.example.taipeizoo.datamodel.SectionResult
 import com.example.taipeizoo.repository.ZooRepo
 import kotlinx.coroutines.launch
 
 class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
 
     private val responseAnimal = SingleLiveEvent<AnimalData>()
-    private val _selectedSection = SingleLiveEvent<SectionResultX>()
-    private val selectedSection: LiveData<SectionResultX>
+    private val _selectedSection = SingleLiveEvent<SectionResult>()
+    private val selectedSection: LiveData<SectionResult>
         get() = _selectedSection
     private val _selectedAnimal = SingleLiveEvent<AnimalResultX>()
     private val selectedAnimal: LiveData<AnimalResultX>
@@ -43,7 +42,7 @@ class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
         }
     }
 
-    fun setSection(section: SectionResultX) {
+    fun setSection(section: SectionResult) {
         _selectedSection.value = section
     }
 

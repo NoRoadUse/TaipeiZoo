@@ -1,8 +1,5 @@
 package com.example.taipeizoo
 
-import com.example.taipeizoo.datamodel.AnimalResultX
-import com.example.taipeizoo.datamodel.SectionResultX
-import com.example.taipeizoo.viewmodel.ZooViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

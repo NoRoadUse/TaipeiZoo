@@ -5,8 +5,8 @@ import com.example.taipeizoo.datamodel.AnimalData
 import com.example.taipeizoo.datamodel.AnimalResult
 import com.example.taipeizoo.datamodel.AnimalResultX
 import com.example.taipeizoo.datamodel.SectionData
+import com.example.taipeizoo.datamodel.SectionContent
 import com.example.taipeizoo.datamodel.SectionResult
-import com.example.taipeizoo.datamodel.SectionResultX
 import com.example.taipeizoo.repository.ZooRepo
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import io.mockk.MockKAnnotations
@@ -53,7 +53,7 @@ class ZooViewModelTest {
 
     @Test
     fun testZooVmGetSectionIntro() {
-        val testData = SectionData(SectionResult(count = 1))
+        val testData = SectionData(SectionContent(count = 1))
 
         coEvery { repo.getZooSectionIntro() } returns testData
 
@@ -86,7 +86,7 @@ class ZooViewModelTest {
     fun testZooViewModelSetSection() {
         val zooViewModel = ZooViewModel()
 
-        val testData = SectionResultX(eName = "Test Section")
+        val testData = SectionResult(eName = "Test Section")
         zooViewModel.setSection(testData)
 
         assertEquals(testData, zooViewModel.getSelectSection())

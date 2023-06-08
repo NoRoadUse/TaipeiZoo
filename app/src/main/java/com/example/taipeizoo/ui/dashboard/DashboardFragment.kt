@@ -11,10 +11,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.taipeizoo.MainActivity
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentDashboardBinding
-import com.example.taipeizoo.datamodel.SectionResultX
+import com.example.taipeizoo.datamodel.SectionResult
 import com.example.taipeizoo.ui.component.DividerItemDecorator
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import timber.log.Timber
@@ -44,7 +43,7 @@ class DashboardFragment : Fragment() {
 
         binding.rvSections.adapter = adapter
         adapter.setOnItemClick(object : SectionAdapter.ItemCallBack {
-            override fun onClick(data: SectionResultX, position: Int) {
+            override fun onClick(data: SectionResult, position: Int) {
                 Timber.d("animal %s", "${zooViewModel.getAnimals(data.eName ?: "")}")
                 zooViewModel.setSection(data)
                 findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_home2, bundleOf("title" to data.eName))

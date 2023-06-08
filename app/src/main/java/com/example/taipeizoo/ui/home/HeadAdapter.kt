@@ -10,24 +10,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.databinding.HeaderAnimalBinding
-import com.example.taipeizoo.datamodel.SectionResultX
+import com.example.taipeizoo.datamodel.SectionResult
 
-class HeadAdapter : ListAdapter<SectionResultX, HeadAdapter.ItemViewHolder>(
+class HeadAdapter : ListAdapter<SectionResult, HeadAdapter.ItemViewHolder>(
     DiffCallBack
 ) {
 
     private var itemCallBackImpl: ItemCallBack? = null
 
     interface ItemCallBack {
-        fun onClick(data: SectionResultX, position: Int)
+        fun onClick(data: SectionResult, position: Int)
     }
 
-    object DiffCallBack : DiffUtil.ItemCallback<SectionResultX>() {
-        override fun areItemsTheSame(oldItem: SectionResultX, newItem: SectionResultX): Boolean {
+    object DiffCallBack : DiffUtil.ItemCallback<SectionResult>() {
+        override fun areItemsTheSame(oldItem: SectionResult, newItem: SectionResult): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SectionResultX, newItem: SectionResultX): Boolean {
+        override fun areContentsTheSame(oldItem: SectionResult, newItem: SectionResult): Boolean {
             return oldItem == newItem
         }
     }
@@ -35,16 +35,16 @@ class HeadAdapter : ListAdapter<SectionResultX, HeadAdapter.ItemViewHolder>(
     inner class ItemViewHolder(private val binding: HeaderAnimalBinding, var viewType: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindModel(data: SectionResultX, position: Int) {
+        fun bindModel(data: SectionResult, position: Int) {
             Glide.with(binding.root)
-                .load(data.ePicUrl?.replace("http", "https"))
+                .load(data.formatEPicUrl)
                 .into(binding.imgSection)
 
             binding.tvSectionContent.text = data.eInfo
             binding.tvSectionInfo.text =
                 "${if (data.eMemo == "") "無休館資訊" else data.eMemo}\n${data.eCategory}"
             binding.tvSectionLink.setOnClickListener {
-                val intent =  Intent(Intent.ACTION_VIEW).apply {
+                val intent = Intent(Intent.ACTION_VIEW).apply {
                     this.data = Uri.parse(data.eUrl)
                 }
                 startActivity(it.context, intent, null)
@@ -54,7 +54,8 @@ class HeadAdapter : ListAdapter<SectionResultX, HeadAdapter.ItemViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding = HeaderAnimalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            HeaderAnimalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ItemViewHolder(binding, viewType)
     }

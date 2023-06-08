@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class SectionData(
     @SerializedName("result")
-    val result: SectionResult? = SectionResult()
+    val result: SectionContent? = SectionContent()
 )

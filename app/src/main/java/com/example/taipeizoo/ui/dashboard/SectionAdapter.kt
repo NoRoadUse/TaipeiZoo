@@ -7,24 +7,24 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.databinding.ItemSectionBinding
-import com.example.taipeizoo.datamodel.SectionResultX
+import com.example.taipeizoo.datamodel.SectionResult
 
-class SectionAdapter : ListAdapter<SectionResultX, SectionAdapter.ItemViewHolder>(
+class SectionAdapter : ListAdapter<SectionResult, SectionAdapter.ItemViewHolder>(
     DiffCallBack
 ) {
 
     private var itemCallBackImpl: ItemCallBack? = null
 
     interface ItemCallBack {
-        fun onClick(data: SectionResultX, position: Int)
+        fun onClick(data: SectionResult, position: Int)
     }
 
-    object DiffCallBack : DiffUtil.ItemCallback<SectionResultX>() {
-        override fun areItemsTheSame(oldItem: SectionResultX, newItem: SectionResultX): Boolean {
+    object DiffCallBack : DiffUtil.ItemCallback<SectionResult>() {
+        override fun areItemsTheSame(oldItem: SectionResult, newItem: SectionResult): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: SectionResultX, newItem: SectionResultX): Boolean {
+        override fun areContentsTheSame(oldItem: SectionResult, newItem: SectionResult): Boolean {
             return oldItem == newItem
         }
     }
@@ -32,10 +32,10 @@ class SectionAdapter : ListAdapter<SectionResultX, SectionAdapter.ItemViewHolder
     inner class ItemViewHolder(private val binding: ItemSectionBinding, var viewType: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bindModel(data: SectionResultX, position: Int) {
+        fun bindModel(data: SectionResult, position: Int) {
 
             Glide.with(itemView.context)
-                .load(data.ePicUrl?.replace("http", "https"))
+                .load(data.formatEPicUrl)
                 .centerCrop()
                 .into(binding.imgSection)
 

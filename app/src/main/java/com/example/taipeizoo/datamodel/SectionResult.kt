@@ -4,14 +4,27 @@ package com.example.taipeizoo.datamodel
 import com.google.gson.annotations.SerializedName
 
 data class SectionResult(
-    @SerializedName("count")
-    val count: Int? = 0,
-    @SerializedName("limit")
-    val limit: Int? = 0,
-    @SerializedName("offset")
-    val offset: Int? = 0,
-    @SerializedName("results")
-    val results: List<SectionResultX>? = listOf(),
-    @SerializedName("sort")
-    val sort: String? = ""
-)
+    @SerializedName("e_category")
+    val eCategory: String? = "",
+    @SerializedName("e_geo")
+    val eGeo: String? = "",
+    @SerializedName("e_info")
+    val eInfo: String? = "",
+    @SerializedName("e_memo")
+    val eMemo: String? = "",
+    @SerializedName("e_name")
+    val eName: String? = "",
+    @SerializedName("e_no")
+    val eNo: String? = "",
+    @SerializedName("e_pic_url")
+    val ePicUrl: String? = "",
+    @SerializedName("e_url")
+    val eUrl: String? = "",
+    @SerializedName("_id")
+    val id: Int? = 0,
+    @SerializedName("_importdate")
+    val sectionImportdate: SectionImportdate? = SectionImportdate()
+) {
+    val formatEPicUrl: String
+        get() = ePicUrl?.replace("http", "https").orEmpty()
+}
