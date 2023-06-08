@@ -13,9 +13,13 @@ import kotlinx.coroutines.launch
 
 class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
 
-    private var responseAnimal = SingleLiveEvent<AnimalData>()
-    private var selectedSection: SectionResultX? = null
-    private var selectedAnimal: AnimalResultX? = null
+    private val responseAnimal = SingleLiveEvent<AnimalData>()
+    private val _selectedSection = SingleLiveEvent<SectionResultX>()
+    private val selectedSection: LiveData<SectionResultX>
+        get() = _selectedSection
+    private val _selectedAnimal = SingleLiveEvent<AnimalResultX>()
+    private val selectedAnimal: LiveData<AnimalResultX>
+        get() = _selectedAnimal
 
     private val _zooSection = SingleLiveEvent<SectionData>()
     val zooSection: LiveData<SectionData>
@@ -33,11 +37,6 @@ class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
         }
     }
 
-
-    private val _animalResult = MutableLiveData<AnimalResultX>()
-    val animalResult: LiveData<AnimalResultX>
-        get() = _animalResult
-
     fun getAnimals(section: String): List<AnimalResultX>? {
         return responseAnimal.value?.animalResult?.results?.filter {
             it.aLocation == section
@@ -45,14 +44,14 @@ class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
     }
 
     fun setSection(section: SectionResultX) {
-        selectedSection = section
+        _selectedSection.value = section
     }
 
-    fun getSelectSection() = selectedSection
+    fun getSelectSection() = selectedSection.value
 
     fun setAnimal(animal: AnimalResultX) {
-        selectedAnimal = animal
+        _selectedAnimal.value = animal
     }
 
-    fun getSelectAnimal() = selectedAnimal
+    fun getSelectAnimal() = selectedAnimal.value
 }
