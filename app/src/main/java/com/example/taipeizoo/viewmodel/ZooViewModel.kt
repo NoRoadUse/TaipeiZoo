@@ -7,8 +7,10 @@ import com.example.taipeizoo.datamodel.AnimalData
 import com.example.taipeizoo.datamodel.AnimalResult
 import com.example.taipeizoo.datamodel.SectionData
 import com.example.taipeizoo.datamodel.SectionResult
+import com.example.taipeizoo.http.ResultCall
 import com.example.taipeizoo.repository.ZooRepo
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
 
@@ -26,13 +28,22 @@ class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
 
     fun getZooSectionIntro() {
         viewModelScope.launch {
-            _zooSection.postValue(repo.getZooSectionIntro())
+
+            val result = repo.getZooSectionIntro()
+
+            result.onSuccess {
+                _zooSection.postValue(it)
+            }.onFailure {
+                Timber.e("network issue ${it.printStackTrace()}")
+            }
         }
     }
 
     fun getAnimalsInfo() {
         viewModelScope.launch {
-            responseAnimal.value = repo.getAnimalsInfo()
+            val result = repo.getAnimalsInfo()
+            result.onSuccess { responseAnimal.value = it }
+                .onFailure { Timber.e("network issue ${it.printStackTrace()}") }
         }
     }
 

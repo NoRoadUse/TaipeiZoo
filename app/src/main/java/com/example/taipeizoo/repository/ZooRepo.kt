@@ -1,5 +1,6 @@
 package com.example.taipeizoo.repository
 
+import com.example.taipeizoo.http.ResultCallAdapterFactory
 import com.example.taipeizoo.http.TaipeiZoo
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -9,6 +10,7 @@ class ZooRepo {
         private val retrofit = Retrofit.Builder()
             .baseUrl("https://data.taipei/api/v1/dataset/")
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(ResultCallAdapterFactory())
             .build()
         private val apiService = retrofit.create(TaipeiZoo::class.java)
     }
