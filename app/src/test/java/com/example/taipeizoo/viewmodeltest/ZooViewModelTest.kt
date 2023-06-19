@@ -53,9 +53,12 @@ class ZooViewModelTest {
 
     @Test
     fun testZooVmGetSectionIntro() {
-        val testData = SectionData(SectionContent(count = 1))
+        val testData =
+            SectionData(SectionContent(results = listOf(SectionResult(eName = "test name"))))
+        val fakeResult =
+            Result.success(testData)
 
-        coEvery { repo.getZooSectionIntro() } returns testData
+        coEvery { repo.getZooSectionIntro() } returns fakeResult
 
         runBlocking {
             vm.getZooSectionIntro()
@@ -68,10 +71,28 @@ class ZooViewModelTest {
 
     @Test
     fun testZooVmGetAnimalInfo() {
-        val testData = listOf(AnimalResult(aBehavior = "test", aLocation = "123"))
-        val fakeResponse = AnimalData(AnimalContent(results = testData))
+        val testData =listOf(
+            AnimalResult(
+                aNameCh = "test 1",
+                aLocation = "123"
+            ),
+            AnimalResult(
+                aNameCh = "test 2",
+                aLocation = "123"
+            ),
+            AnimalResult(
+                aNameCh = "test 3",
+                aLocation = "123"
+            )
+        )
+        val fakeResult =
+            Result.success(AnimalData(
+                AnimalContent(
+                    results = testData
+                )
+            ))
 
-        coEvery { repo.getAnimalsInfo() } returns fakeResponse
+        coEvery { repo.getAnimalsInfo() } returns fakeResult
 
         runBlocking {
             vm.getAnimalsInfo()
@@ -79,7 +100,7 @@ class ZooViewModelTest {
 
         coVerify(exactly = 1) { repo.getAnimalsInfo() }
 
-        assertEquals(testData, vm.getAnimals("123"))
+        assertEquals(testData, vm.getAnimals("3"))
     }
 
     @Test

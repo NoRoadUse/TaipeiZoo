@@ -7,15 +7,22 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentHomeBinding
 import com.example.taipeizoo.datamodel.AnimalResult
+import com.example.taipeizoo.datamodel.SectionResult
+import com.example.taipeizoo.ui.animal.AnimalFragment.Companion.ANIMAL
 import com.example.taipeizoo.viewmodel.ZooViewModel
 import timber.log.Timber
 
 class SectionFragment : Fragment() {
+
+    companion object {
+            const val SELECTED_SECTION = "selected_section"
+    }
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -23,10 +30,19 @@ class SectionFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val zooViewModel: ZooViewModel by activityViewModels()
+    private val sectionViewModel: SectionViewModel by viewModels()
 
     private val adapter = AnimalAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.getSerializable(SELECTED_SECTION)?.let {
+            sectionViewModel.setSelectedSection(it as SectionResult)
+        }
+
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,25 +52,26 @@ class SectionFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val section = zooViewModel.getSelectSection()
-        Timber.d("$section")
+        sectionViewModel.responseAnimal.observe(viewLifecycleOwner) {
+            sectionViewModel.parseShowDataContent(it)
+        }
+
+        sectionViewModel.formatContentList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
 
         binding.rvAnimal.adapter = adapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {
             override fun onClick(data: AnimalResult, position: Int) {
-                zooViewModel.setAnimal(data)
                 findNavController().navigate(
                     R.id.action_navigation_section_to_navigation_animal,
-                    bundleOf("title" to data.aNameCh)
+                    bundleOf("title" to data.aNameCh, ANIMAL to data)
                 )
             }
         })
 
-        zooViewModel.parseShowDataContent()
 
-        zooViewModel.formatContentList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
+        sectionViewModel.getAnimalsInfo()
 
         return root
     }

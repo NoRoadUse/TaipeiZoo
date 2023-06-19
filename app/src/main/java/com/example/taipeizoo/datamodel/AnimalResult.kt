@@ -2,6 +2,7 @@ package com.example.taipeizoo.datamodel
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class AnimalResult(
     @SerializedName("a_adopt")
@@ -100,7 +101,7 @@ data class AnimalResult(
     val id: Int? = 0,
     @SerializedName("_importdate")
     val animalImportdate: AnimalImportdate? = AnimalImportdate()
-) {
+): Serializable {
     val formatAPic01Url: String
         get() = aPic01Url?.replace("http", "https").orEmpty()
 }

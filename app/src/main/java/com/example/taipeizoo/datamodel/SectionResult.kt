@@ -2,6 +2,7 @@ package com.example.taipeizoo.datamodel
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SectionResult(
     @SerializedName("e_category")
@@ -24,7 +25,7 @@ data class SectionResult(
     val id: Int? = 0,
     @SerializedName("_importdate")
     val sectionImportdate: SectionImportdate? = SectionImportdate()
-) {
+) : Serializable{
     val formatEPicUrl: String
         get() = ePicUrl?.replace("http", "https").orEmpty()
 }

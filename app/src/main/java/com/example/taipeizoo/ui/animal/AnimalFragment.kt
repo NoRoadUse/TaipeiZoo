@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.taipeizoo.R
 import com.example.taipeizoo.databinding.FragmentNotificationsBinding
-import com.example.taipeizoo.viewmodel.ZooViewModel
-import timber.log.Timber
+import com.example.taipeizoo.datamodel.AnimalResult
 
 class AnimalFragment : Fragment() {
+
+    companion object {
+        const val ANIMAL = "animal"
+    }
 
     private var _binding: FragmentNotificationsBinding? = null
 
@@ -20,7 +23,7 @@ class AnimalFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val zooViewModel: ZooViewModel by activityViewModels()
+    private val animalViewModel: AnimalViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,10 +34,12 @@ class AnimalFragment : Fragment() {
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        arguments?.getSerializable(ANIMAL)?.let {
+            animalViewModel.setSelectAnimal((it as AnimalResult))
 
-        zooViewModel.getSelectAnimal()?.apply {
-            Timber.d("$this")
+        }
 
+        animalViewModel.getSelectAnimal()?.apply {
             Glide.with(root)
                 .load(formatAPic01Url)
                 .into(binding.imgAnimal)
