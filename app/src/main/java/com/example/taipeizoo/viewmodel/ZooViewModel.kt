@@ -9,6 +9,7 @@ import com.example.taipeizoo.datamodel.SectionData
 import com.example.taipeizoo.datamodel.SectionResult
 import com.example.taipeizoo.http.ResultCall
 import com.example.taipeizoo.repository.ZooRepo
+import com.example.taipeizoo.ui.animal.AnimalItem
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -25,6 +26,11 @@ class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
     private val _zooSection = SingleLiveEvent<SectionData>()
     val zooSection: LiveData<SectionData>
         get() = _zooSection
+
+    private val _formatContentList = SingleLiveEvent<List<AnimalItem>>()
+    val formatContentList: LiveData<List<AnimalItem>>
+        get() = _formatContentList
+
 
     fun getZooSectionIntro() {
         viewModelScope.launch {
@@ -51,6 +57,18 @@ class ZooViewModel(private val repo: ZooRepo = ZooRepo()) : ViewModel() {
         return responseAnimal.value?.animalContent?.results?.filter {
             it.aLocation == section
         }
+    }
+
+    fun parseShowDataContent() {
+        val formatContent = mutableListOf<AnimalItem>()
+        selectedSection.value?.let {
+            formatContent.add(AnimalItem.Header(it))
+            getAnimals(it.eName ?: "")?.forEach {
+                formatContent.add(AnimalItem.Data(animalResult = it))
+            }
+        }
+        _formatContentList.postValue(formatContent)
+
     }
 
     fun setSection(section: SectionResult) {

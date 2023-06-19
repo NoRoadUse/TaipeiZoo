@@ -25,9 +25,7 @@ class SectionFragment : Fragment() {
 
     private val zooViewModel: ZooViewModel by activityViewModels()
 
-    private val headAdapter = HeadAdapter()
     private val adapter = AnimalAdapter()
-    private val concatAdapter = ConcatAdapter(headAdapter, adapter)
 
 
     override fun onCreateView(
@@ -41,18 +39,21 @@ class SectionFragment : Fragment() {
         val section = zooViewModel.getSelectSection()
         Timber.d("$section")
 
-        binding.rvAnimal.adapter = concatAdapter
+        binding.rvAnimal.adapter = adapter
         adapter.setOnItemClick(object : AnimalAdapter.ItemCallBack {
             override fun onClick(data: AnimalResult, position: Int) {
                 zooViewModel.setAnimal(data)
-                findNavController().navigate(R.id.action_navigation_section_to_navigation_animal, bundleOf("title" to data.aNameCh))
+                findNavController().navigate(
+                    R.id.action_navigation_section_to_navigation_animal,
+                    bundleOf("title" to data.aNameCh)
+                )
             }
         })
 
-        headAdapter.submitList(listOf(section))
+        zooViewModel.parseShowDataContent()
 
-        zooViewModel.getAnimals(section?.eName ?: "")?.takeIf { it.isNotEmpty() }?.apply {
-            adapter.submitList(this)
+        zooViewModel.formatContentList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
 
         return root
